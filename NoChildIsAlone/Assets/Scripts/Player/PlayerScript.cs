@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UDL.Core;
+using DG.Tweening;
 
 public class PlayerScript : AbstractView
 {
@@ -79,5 +80,11 @@ public class PlayerScript : AbstractView
         yield return new WaitForSeconds(dashDuration);
         currentSpeed = speed;
         currentMaxSpeed = maxSpeed;
+    }
+
+    public void FaceToPerson(Vector3 personPostion)
+    {
+        Vector3 dir = NOOD.NoodyCustomCode.LookDirection(this.transform.position, personPostion);
+        this.transform.forward = dir;
     }
 }

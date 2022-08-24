@@ -8,6 +8,6 @@ public class Main : AbstractView
 {
     private void Start()
     {
-        PlayerScript.Create().AddTo(this);
+        //PlayerScript.Create().AddTo(this);
     }
 }
