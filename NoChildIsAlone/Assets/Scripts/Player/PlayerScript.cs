@@ -2,8 +2,9 @@ using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UDL.Core;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : AbstractView
 {
     #region Components
     [SerializeField] Rigidbody myBody;
@@ -23,6 +24,11 @@ public class PlayerScript : MonoBehaviour
     #endregion
 
     public static PlayerScript InsPlayerScript;
+
+    public static PlayerScript Create(Transform parent = null)
+    {
+        return Instantiate<PlayerScript>(Resources.Load<PlayerScript>("Prefabs/Characters/Player"), parent);
+    }
 
     void Awake()
     {
