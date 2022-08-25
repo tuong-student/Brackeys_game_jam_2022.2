@@ -5,8 +5,8 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     #region Components
-    [SerializeField] Transform Entry, Table;
-    public List<Vector3> destinationList = new List<Vector3>();
+    [SerializeField] Transform Entry, TableTransform;
+    public List<Transform> destinationList = new List<Transform>();
     List<string> nameList = new List<string>();
     #endregion
 
@@ -39,20 +39,20 @@ public class MapManager : MonoBehaviour
         if(Random.Range(0, 2) < 1)
         {
             Person male = Person.CreateMale(Entry);
-            Person female = Person.CreateFemale(this.transform);
+            Person female = Person.CreateFemale();
             male.isRequest = true;
             male.SetRequestName(name);
             female.SetName(name);
-            male.destination = Table.position;
+            male.destination = TableTransform.position;
         }
         else
         {
-            Person male = Person.CreateMale(this.transform);
+            Person male = Person.CreateMale();
             Person female = Person.CreateFemale(Entry);
             female.isRequest = true;
             female.SetRequestName(name);
             male.SetName(name);
-            female.destination = Table.position;
+            female.destination = TableTransform.position;
         }
     }
 }

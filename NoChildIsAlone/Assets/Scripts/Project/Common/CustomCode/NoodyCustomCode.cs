@@ -83,6 +83,7 @@ namespace NOOD
             var x = Mathf.Cos(radians);
             var z = Mathf.Sin(radians);
             Vector3 pos = new Vector3(x, centerPosition.y, z);
+            pos *= radius;
             return pos += centerPosition;
         }
 

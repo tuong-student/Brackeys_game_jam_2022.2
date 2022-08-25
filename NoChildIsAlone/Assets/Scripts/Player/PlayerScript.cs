@@ -10,7 +10,11 @@ public class PlayerScript : AbstractView
     #region Components
     [SerializeField] Rigidbody myBody;
     [SerializeField] Animator playerAnim;
+    [SerializeField] UnityEngine.UI.Text pressE;
+    [SerializeField] Transform upHeadTransform;
     Vector3 movement;
+
+    public Person currentPerson;
     #endregion
 
     #region Stats
@@ -22,6 +26,7 @@ public class PlayerScript : AbstractView
     [SerializeField] float maxSpeed;
     [SerializeField] float maxDashSpeed;
     Vector3 direction;
+    bool isFollowed;
     #endregion
 
     public static PlayerScript InsPlayerScript;
@@ -45,6 +50,34 @@ public class PlayerScript : AbstractView
     void Update()
     {
         Move();
+        pressE.transform.position = NOOD.NoodyCustomCode.WorldPointToScreenPoint(upHeadTransform.position);
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (isFollowed)
+            {
+                currentPerson.isFollowPlayer = false;
+                isFollowed = false;
+            }
+
+            if (pressE.gameObject.activeInHierarchy)
+            {
+                if (currentPerson && isFollowed == false)
+                {
+                    currentPerson.isFollowPlayer = true;
+                    isFollowed = true;
+                }
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Table"))
+        {
+            currentPerson.isFollowPlayer = false;
+            isFollowed = false;
+            collision.gameObject.GetComponent<Table>().SetApplyPerson(currentPerson);
+        }
     }
 
     void Move()
@@ -86,5 +119,10 @@ public class PlayerScript : AbstractView
     {
         Vector3 dir = NOOD.NoodyCustomCode.LookDirection(this.transform.position, personPostion);
         this.transform.forward = dir;
+    }
+
+    public void ShowPressEText(bool value)
+    {
+        pressE.gameObject.SetActive(value);
     }
 }

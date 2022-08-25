@@ -10,6 +10,7 @@ public class CustomCamera : MonoBehaviour
     [SerializeField] Transform FPSCamTransform;
     [SerializeField] Vector3 offset;
     [SerializeField] float smoothTime;
+    [SerializeField] float maxX, maxY, minX, minY;
     #endregion
 
     #region Stats
@@ -40,7 +41,7 @@ public class CustomCamera : MonoBehaviour
 
     public void FollowTarget()
     {
-        NOOD.NoodyCustomCode.SmoothCameraFollow(this.gameObject, smoothTime, target.transform, offset);
+        NOOD.NoodyCustomCode.SmoothCameraFollow(this.gameObject, smoothTime, target.transform, offset, maxX, maxY, minX, minY);
     }
 
     public void SetCamToHead()
