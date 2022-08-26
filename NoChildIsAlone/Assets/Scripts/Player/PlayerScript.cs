@@ -10,7 +10,7 @@ public class PlayerScript : AbstractView
     #region Components
     [SerializeField] Rigidbody myBody;
     [SerializeField] Animator playerAnim;
-    [SerializeField] UnityEngine.UI.Text pressE;
+    [SerializeField] GameObject pressE;
     [SerializeField] Transform upHeadTransform;
     Vector3 movement;
 
@@ -39,12 +39,15 @@ public class PlayerScript : AbstractView
     void Awake()
     {
         if (InsPlayerScript == null) InsPlayerScript = this;
+        pressE = GameObject.FindGameObjectWithTag("E");
+        pressE.gameObject.SetActive(false);
     }
 
     void Start()
     {
         currentSpeed = speed;
         currentMaxSpeed = maxSpeed;
+
     }
 
     void Update()
@@ -77,6 +80,30 @@ public class PlayerScript : AbstractView
             currentPerson.isFollowPlayer = false;
             isFollowed = false;
             collision.gameObject.GetComponent<Table>().SetApplyPerson(currentPerson);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Person person = other.GetComponent<Person>();
+        if (person)
+        {
+            currentPerson = person;
+            person.isPlayer = true;
+            person.Player = this.gameObject;
+            ShowPressEText(true);
+            NameManager.InsNameManager.ShowNameText(person.name);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Person person = other.GetComponent<Person>();
+        if (person)
+        {
+            person.isPlayer = false;
+            ShowPressEText(false);
+            NameManager.InsNameManager.HideNameText();
         }
     }
 

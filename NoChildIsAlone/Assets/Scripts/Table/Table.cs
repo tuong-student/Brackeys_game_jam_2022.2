@@ -8,6 +8,8 @@ public class Table : MonoBehaviour
 
     public static Table InsTable;
 
+    public static System.Action OnPersonTrue;
+
     private void Awake()
     {
         if (InsTable == null) InsTable = this;
@@ -31,6 +33,7 @@ public class Table : MonoBehaviour
         {
             if (requestPerson.requestName.Equals(applyPerson.name))
             {
+                OnPersonTrue?.Invoke();
                 return true;
             }
         }

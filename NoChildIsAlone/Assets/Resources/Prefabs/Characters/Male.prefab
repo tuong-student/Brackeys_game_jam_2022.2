@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 8624888498151892749}
   - component: {fileID: 8138736965347339603}
   - component: {fileID: -3655191087687971813}
-  - component: {fileID: 6772801402820246917}
+  - component: {fileID: 8821736930525642073}
   m_Layer: 0
   m_Name: Male
   m_TagString: Untagged
@@ -312,6 +312,7 @@ MonoBehaviour:
   requestName: 
   isRequest: 0
   isFinish: 0
+  isPlayer: 0
   isFollowPlayer: 0
 --- !u!54 &8138736965347339603
 Rigidbody:
@@ -343,7 +344,7 @@ CapsuleCollider:
   m_Height: 1.7694138
   m_Direction: 1
   m_Center: {x: 0, y: 0.8500355, z: 0}
---- !u!65 &6772801402820246917
+--- !u!65 &8821736930525642073
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -354,8 +355,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.35912555, z: 0.7}
-  m_Center: {x: 0, y: 1, z: 1}
+  m_Size: {x: 0.29124954, y: 0.21961355, z: 0.67567575}
+  m_Center: {x: -0.011149481, y: 1.1427603, z: 0.8878378}
 --- !u!1 &3831077624519112938
 GameObject:
   m_ObjectHideFlags: 0

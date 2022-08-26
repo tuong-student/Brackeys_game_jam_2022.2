@@ -6,8 +6,11 @@ using UDL.Core;
 
 public class Main : AbstractView
 {
-    private void Start()
+    private IEnumerator Start()
     {
-        //PlayerScript.Create().AddTo(this);
+        GameManager.Create().AddTo(this);
+        MapManager.Create().AddTo(this);
+        yield return null;
+        PlayerScript.Create().AddTo(this);
     }
 }

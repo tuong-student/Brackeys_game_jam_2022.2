@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UDL.Core;
 
-public class Person : MonoBehaviour
+public class Person : AbstractView
 {
     #region Components
     [SerializeField] Animator anim;
     [SerializeField] List<Vector3> destinationList = new List<Vector3>();
-    [SerializeField] GameObject Player;
+    public GameObject Player;
     [HideInInspector] public Person followPerson;
     #endregion
 
@@ -20,7 +21,7 @@ public class Person : MonoBehaviour
     
     public bool isFinish;
     bool isBlock;
-    bool isPlayer;
+    public bool isPlayer;
     int i;
     bool isMale;
     public bool isFollowPlayer;
@@ -78,29 +79,12 @@ public class Person : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        isBlock = true;
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayer = true;
-            Stop();
-            PlayerScript playerScript = other.gameObject.GetComponent<PlayerScript>();
-            playerScript.FaceToPerson(this.transform.position);
-            playerScript.currentPerson = this;
-            PlayerScript.InsPlayerScript.ShowPressEText(true);
-            NameManager.InsNameManager.ShowNameText(this.name);
-            Player = other.gameObject;
-        }
+            isBlock = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         isBlock = false;
-        NameManager.InsNameManager.HideNameText();
-        PlayerScript.InsPlayerScript.ShowPressEText(false);
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayer = false;
-        }
     }
 
     public void FollowPlayer()
@@ -162,8 +146,11 @@ public class Person : MonoBehaviour
                 NameManager.InsNameManager.SetRequest(!this.IsMale, this.requestName);
                 Table.InsTable.requestPerson = this;
             }
-            if(isFinish)
+            if (isFinish)
+            {
                 MoveNext();
+            }
+            
         }
     }
 
@@ -208,7 +195,7 @@ public class Person : MonoBehaviour
         this.transform.forward = direction;
     }
 
-    void Stop()
+    public void Stop()
     {
         anim.SetBool("Run", false);
     }
